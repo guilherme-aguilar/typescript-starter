@@ -45,7 +45,7 @@ export class VpnService {
       this.logger.log(`Connected to VPN ${vpn.name}`);
 
       // Configurar routing e iptables
-      await execAsync(`/app/scripts/setup-routing.sh ppp0`);
+      await execAsync(`setup-routing.sh ppp0`);
 
       return true;
     } catch (error) {
@@ -66,7 +66,7 @@ export class VpnService {
       this.logger.log(`Disconnected from VPN ${vpn.name}`);
 
       // Restaurar routing e iptables
-      await execAsync(`/app/scripts/cleanup-routing.sh`);
+      await execAsync(`cleanup-routing.sh`);
 
       return true;
     } catch (error) {

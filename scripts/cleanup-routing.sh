@@ -1,5 +1,5 @@
 #!/bin/bash
-# /app/scripts/cleanup-routing.sh
+# /usr/local/bin/cleanup-routing.sh
 
 # Remover regras de iptables
 iptables -t nat -F POSTROUTING

@@ -1,6 +1,4 @@
-#!/bin/bash
-# /app/scripts/setup-routing.sh
-
+#!/bin/sh
 INTERFACE=$1
 
 if [ -z "$INTERFACE" ]; then

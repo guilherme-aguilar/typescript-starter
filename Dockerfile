@@ -23,8 +23,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 
 # Adicionando scripts para configuração PPTP e iptables
-COPY ./scripts /app/scripts
-RUN chmod +x /app/scripts/*.sh
+COPY ./scripts /usr/local/bin
+RUN chmod +x /usr/local/bin/*.sh
+
 
 EXPOSE 3000
 
