@@ -41,6 +41,7 @@ export class VpnService {
 
     try {
       // Iniciar conexão PPTP com opções adicionais
+      await execAsync(`ppp call ${id}`);
       await execAsync(`pon ${id} updetach`);
       this.logger.log(`Connected to VPN ${vpn.name}`);
 
