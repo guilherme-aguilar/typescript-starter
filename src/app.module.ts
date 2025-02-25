@@ -1,10 +1,9 @@
+// backend/src/app.module.ts
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { VpnModule } from './vpn/vpn.module';
+import { ProxyModule } from './proxy/proxy.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [VpnModule, ProxyModule],
 })
 export class AppModule {}

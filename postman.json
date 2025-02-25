@@ -1,0 +1,133 @@
+{
+  "info": {
+    "_postman_id": "your-postman-id",
+    "name": "VPN Proxy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Proxy",
+      "item": [
+        {
+          "name": "Start Proxy",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"port\": 8080 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/proxy/start",
+              "host": ["{{base_url}}"],
+              "path": ["proxy", "start"]
+            }
+          }
+        },
+        {
+          "name": "Stop Proxy",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/proxy/stop",
+              "host": ["{{base_url}}"],
+              "path": ["proxy", "stop"]
+            }
+          }
+        },
+        {
+          "name": "Get Proxy Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/proxy/info",
+              "host": ["{{base_url}}"],
+              "path": ["proxy", "info"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "VPN",
+      "item": [
+        {
+          "name": "Create VPN",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"VPN-Test\", \"server\": \"vpn.example.com\", \"username\": \"user\", \"password\": \"pass\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/vpn",
+              "host": ["{{base_url}}"],
+              "path": ["vpn"]
+            }
+          }
+        },
+        {
+          "name": "Get All VPNs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/vpn",
+              "host": ["{{base_url}}"],
+              "path": ["vpn"]
+            }
+          }
+        },
+        {
+          "name": "Get VPN Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/vpn/:id/status",
+              "host": ["{{base_url}}"],
+              "path": ["vpn", ":id", "status"]
+            }
+          }
+        },
+        {
+          "name": "Connect VPN",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/vpn/:id/connect",
+              "host": ["{{base_url}}"],
+              "path": ["vpn", ":id", "connect"]
+            }
+          }
+        },
+        {
+          "name": "Disconnect VPN",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/vpn/:id/disconnect",
+              "host": ["{{base_url}}"],
+              "path": ["vpn", ":id", "disconnect"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
