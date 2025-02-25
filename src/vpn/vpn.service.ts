@@ -40,11 +40,21 @@ export class VpnService {
     }
 
     try {
-      // Iniciar conexão PPTP
-      await execAsync(`pppd call ${id}`);
+      // Iniciar conexão PPTP com opções adicionais
+      await execAsync(`pon ${id} updetach`);
       this.logger.log(`Connected to VPN ${vpn.name}`);
 
+      // Aguardar interface subir
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
+      // Verificar status da interface
+      const { stdout: ifaceStatus } = await execAsync('ip addr show ppp0');
+      if (!ifaceStatus.includes('UP')) {
+        throw new Error('VPN interface failed to start');
+      }
+
       // Configurar routing e iptables
+      await execAsync(`ip link set ppp0 up`);
       await execAsync(`setup-routing.sh ppp0`);
 
       return true;
@@ -62,7 +72,7 @@ export class VpnService {
 
     try {
       // Encerrar conexão PPTP
-      await execAsync(`pkill -f "pppd call ${id}"`);
+      await execAsync(`poff ${id}`);
       this.logger.log(`Disconnected from VPN ${vpn.name}`);
 
       // Restaurar routing e iptables
@@ -82,8 +92,8 @@ export class VpnService {
   getVpnStatus(id: string): Promise<{ connected: boolean; interface?: string; ip?: string }> {
     return new Promise(async (resolve) => {
       try {
-        const { stdout } = await execAsync(`ifconfig ppp0`);
-        if (stdout.includes('inet ')) {
+        const { stdout } = await execAsync(`ip addr show ppp0`);
+        if (stdout.includes('state UP')) {
           const ipMatch = stdout.match(/inet (\d+\.\d+\.\d+\.\d+)/);
           const ip = ipMatch ? ipMatch[1] : undefined;
           resolve({ connected: true, interface: 'ppp0', ip });
@@ -115,6 +125,9 @@ maxfail 0
 defaultroute
 replacedefaultroute
 usepeerdns
+lock
+nobsdcomp
+nodeflate
 `;
   }
 }
